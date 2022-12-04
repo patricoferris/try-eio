@@ -56,7 +56,10 @@ let cyan el = El.set_inline_style (Jstr.v "color") (Jstr.v "rgba(30, 58, 138)") 
 
 let handle_output (o : Toplevel_api.exec_result) =
   let output = get_el_by_id "output" in
-  let out = El.(p [ txt' (Option.value ~default:"" o.stdout); txt' (Option.value ~default:"" o.stderr) ]) in
+  let out = El.(p [ 
+    txt' (Option.value ~default:"" o.stdout); 
+    txt' (Option.value ~default:"" o.stderr);
+    txt' (Option.value ~default:"" o.caml_ppf); ]) in
   cyan out;
   El.append_children output [ out ]
 
