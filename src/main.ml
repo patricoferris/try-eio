@@ -56,10 +56,12 @@ let cyan el = El.set_inline_style (Jstr.v "color") (Jstr.v "rgba(30, 58, 138)") 
 
 let handle_output (o : Toplevel_api.exec_result) =
   let output = get_el_by_id "output" in
-  let out = El.(p [ 
-    txt' (Option.value ~default:"" o.stdout); 
-    txt' (Option.value ~default:"" o.stderr);
-    txt' (Option.value ~default:"" o.caml_ppf); ]) in
+  let out = El.(div [
+    p ~at:[ At.v (Jstr.v "style") (Jstr.v "white-space: pre-wrap;")] [ txt' (Option.value ~default:"" o.stdout)]; 
+    p ~at:[ At.v (Jstr.v "style") (Jstr.v "white-space: pre-wrap;")] [ txt' (Option.value ~default:"" o.stderr)]; 
+    p ~at:[ At.v (Jstr.v "style") (Jstr.v "white-space: pre-wrap;")] [ txt' (Option.value ~default:"" o.caml_ppf)]
+  ])
+  in 
   cyan out;
   El.append_children output [ out ]
 
